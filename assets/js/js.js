@@ -171,6 +171,7 @@ document.addEventListener('DOMContentLoaded', pintarDB);
 
 listarProducto.addEventListener('click', (e) => {
 	e.preventDefault();
+
 	let item = e.path[2].childNodes[3].innerHTML;
 
 	//Editar
