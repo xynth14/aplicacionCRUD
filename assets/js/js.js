@@ -2,11 +2,14 @@
 const formularioUI = document.querySelector('#formulario');
 const listarProducto = document.querySelector('#listar');
 
+const nombreUI = document.querySelector('#nombre');
+const precioUI = document.querySelector('#precio');
+const cantidadUI = document.querySelector('#cantidad');
+const estadoUI = document.querySelector('#estado');
+
 let arrayListado = [];
 
-
 //FUNCIONES
-
 const crearItem = (codigo, nombre, precio, cantidad, estado) => {
 	let item = {
 		codigo: codigo,
@@ -15,23 +18,18 @@ const crearItem = (codigo, nombre, precio, cantidad, estado) => {
 		cantidad: cantidad,
 		estado: estado
 	}
-
 	arrayListado.unshift(item);
-
 	return item;
 }
 
 const guardarDB = () => {
 	localStorage.setItem('data', JSON.stringify(arrayListado));
-
 	pintarDB();
 }
 
 const pintarDB = () => {
 	listarProducto.innerHTML = '';
-
 	arrayListado = JSON.parse(localStorage.getItem('data'));
-
 	if(arrayListado === null){
 		arrayListado = [];
 	}else{
@@ -52,31 +50,22 @@ const pintarDB = () => {
 				item++;
 		})
 	}
-
 }
 
 const eliminarDB = (codigo) => {
-
 	let indexArray;
 	arrayListado.forEach((elemento, index) => {
-
 		if(elemento.codigo == codigo){
 			indexArray = index;
-			//console.log(indexArray);
 		}
-	
 	});
-
 	arrayListado.splice(indexArray, 1);
 	guardarDB();
-
 }
 
 const editarDB = (codigo) => {
-
 	document.querySelector('.btnGuardar').style.display = "none";
 	document.querySelector('.btnActualizar').style.display = "block";
-	
 	formularioUI.style.background = "#eda71842";
 
 	let indexArray;	
@@ -84,14 +73,12 @@ const editarDB = (codigo) => {
 		if(elemento.codigo == codigo){
 			indexArray = index;
 			document.querySelector('.codigo').innerHTML = arrayListado[indexArray].codigo;
-			document.querySelector('#nombre').value = arrayListado[indexArray].nombre;
-			document.querySelector('#precio').value = arrayListado[indexArray].precio;
-			document.querySelector('#cantidad').value = arrayListado[indexArray].cantidad;
-			document.querySelector('#estado').value = arrayListado[indexArray].estado;
+			nombreUI.value = arrayListado[indexArray].nombre;
+			precioUI.value = arrayListado[indexArray].precio;
+			cantidadUI.value = arrayListado[indexArray].cantidad;
+			estadoUI.value = arrayListado[indexArray].estado;
 		}
 	});
-	
-
 }
 
 function mostrar_menumv() {
@@ -100,14 +87,13 @@ function mostrar_menumv() {
 }
 
 //EVENTLISTENER
-
 document.querySelector('.btnActualizar').addEventListener('click', (e) => {
 	e.preventDefault();
 	codigo = document.querySelector('.codigo').innerHTML;
-	nombre = document.querySelector('#nombre').value;
-	precio = document.querySelector('#precio').value;
-	cantidad = document.querySelector('#cantidad').value;
-	estado = document.querySelector('#estado').value;
+	nombre = nombreUI.value;
+	precio = precioUI.value;
+	cantidad = cantidadUI.value;
+	estado = estadoUI.value;
 	
 	let indexArray = arrayListado.findIndex((elemento) => elemento.codigo == codigo);
 	arrayListado[indexArray].nombre = nombre;
@@ -123,23 +109,21 @@ document.querySelector('.btnActualizar').addEventListener('click', (e) => {
 
 document.querySelector('.btnGuardar').addEventListener('click', (e) => {
 	e.preventDefault();
-
 	let codigo = Date.now();
-	let nombre = document.querySelector('#nombre').value;
-	let precio = document.querySelector('#precio').value;
-	let cantidad = document.querySelector('#cantidad').value;
-	let estado = document.querySelector('#estado').value;
+	let nombre = nombreUI.value;
+	let precio = precioUI.value;
+	let cantidad = cantidadUI.value;
+	let estado = estadoUI.value;
 	
 	crearItem(codigo, nombre, precio, cantidad, estado);
 	guardarDB();
 	formularioUI.reset();
 })
 
-document.addEventListener('DOMContentLoaded', pintarDB)
+document.addEventListener('DOMContentLoaded', pintarDB);
 
 listarProducto.addEventListener('click', (e) => {
 	e.preventDefault();
-
 	let item = e.path[2].childNodes[3].innerHTML;
 
 	//Editar
