@@ -258,11 +258,10 @@ main section.registro .main-registro form {
 @media (max-width: 1200px) {
   main section.registro .main-registro form {
     gap: 20px;
-
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
   }
-  main section.registro .main-registro form div:nth-child(1) {
+  main section.registro .main-registro form div:nth-child(2) {
     grid-column-start: 1;
     grid-column-end: 3;
   }

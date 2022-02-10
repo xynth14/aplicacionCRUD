@@ -30,16 +30,11 @@ const guardarDB = () => {
 const pintarDB = () => {
 	listarProducto.innerHTML = '';
 	arrayListado = JSON.parse(localStorage.getItem('data'));
-	if(arrayListado === null){
+	if(arrayListado === null || arrayListado.length == 0){
 		arrayListado = [];
 		document.querySelector('.rwd-table').style.display = 'none';
-		datosVacios('Aún no hay registro de producto');
+		document.querySelector('.tabla-vacia').style.display = 'block';
 	}else{
-		/*if(arrayListado.length == 0){
-			document.querySelector('.rwd-table').style.display = 'none';
-			datosVacios('Aún no hay registro de producto');
-			return;
-		}*/
 		document.querySelector('.tabla-vacia').style.display = 'none';
 		let item = 1;
 		arrayListado.forEach(element => {
@@ -97,13 +92,6 @@ function mostrar_menumv() {
 	element.classList.toggle("act-mv");
 }
 
-function datosVacios(mensaje){
-	const divMensaje = document.createElement('div');
-	divMensaje.classList.add('tabla-vacia');
-	divMensaje.textContent = mensaje;		
-	document.querySelector('.main-lista').appendChild(divMensaje);
-	console.log(mensaje);
-}
 function imprimirAlerta(mensaje, tipo){
 		const divMensaje = document.createElement('div');
 		divMensaje.classList.add('alert');
