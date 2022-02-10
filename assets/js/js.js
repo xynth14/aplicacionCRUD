@@ -7,8 +7,9 @@ let arrayListado = [];
 
 //FUNCIONES
 
-const crearItem = (nombre, precio, cantidad, estado) => {
+const crearItem = (codigo, nombre, precio, cantidad, estado) => {
 	let item = {
+		codigo: codigo,
 		nombre: nombre,
 		precio: precio,
 		cantidad: cantidad,
@@ -38,18 +39,36 @@ const pintarDB = () => {
 		arrayListado.forEach(element => {
 			listarProducto.innerHTML += `<tr>
 					<td data-th="ITEM">${item}</td>
+					<td data-th="CÓDIGO">${element.codigo}</td>
 					<td data-th="PRODUCTO">${element.nombre}</td>
 					<td data-th="PRECIO">${element.precio}</td>
 					<td data-th="CANTIDAD">${element.cantidad}</td>
 					<td data-th="ESTADO">${element.estado}</td>
 					<td data-th="ACCIONES">
-						<i class="icon-edit"></i>
-						<i class="icon-trash"></i>
+						<i class="icon-edit">e</i>
+						<i class="icon-trash">d</i>
 					</td>
 				</tr>`;
 				item++;
 		})
 	}
+
+}
+
+const eliminarDB = (codigo) => {
+
+	let indexArray;
+	arrayListado.forEach((elemento, index) => {
+
+		if(elemento.codigo == codigo){
+			indexArray = index;
+			console.log(indexArray);
+		}
+	
+	});
+
+	arrayListado.splice(indexArray, 1);
+	guardarDB();
 
 }
 
@@ -63,14 +82,33 @@ function mostrar_menumv() {
 formularioUI.addEventListener('submit', (e) => {
 	e.preventDefault();
 
+	let codigo = Date.now();
 	let nombre = document.querySelector('#nombre').value;
 	let precio = document.querySelector('#precio').value;
 	let cantidad = document.querySelector('#cantidad').value;
 	let estado = document.querySelector('#estado').value;
-
-	crearItem(nombre, precio, cantidad, estado);
+	
+	crearItem(codigo, nombre, precio, cantidad, estado);
 	guardarDB();
 	formularioUI.reset();
 })
 
 document.addEventListener('DOMContentLoaded', pintarDB)
+
+listarProducto.addEventListener('click', (e) => {
+	e.preventDefault();
+
+	let item = e.path[2].childNodes[3].innerHTML;
+
+	//Editar
+	if(e.target.innerHTML === 'e'){
+		//console.log(e.path[2].childNodes[1].innerHTML)
+	}
+
+	//eliminar
+	if(e.target.innerHTML === 'd'){
+		
+		eliminarDB(item);
+	}
+
+});
