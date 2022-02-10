@@ -38,6 +38,7 @@ const pintarDB = () => {
 			datosVacios('Aún no hay registro de producto');
 			return;
 		}
+		document.querySelector('.tabla-vacia').style.display = 'none';
 		let item = 1;
 		arrayListado.forEach(element => {
 			let estadoProd = (element.estado==1)?'<span class=activo>Activo</span>':'<span class=inactivo>Inactivo</span>';
@@ -160,7 +161,7 @@ document.querySelector('.btnGuardar').addEventListener('click', (e) => {
 		estadoUI.style.border = "1px solid #e5e5e5";
 		estadoUI.style.background = "#ffffff";
 		document.querySelector('.rwd-table').style.display = 'table';
-		document.querySelector('.tabla-vacia').style.display = 'none';
+		//document.querySelector('.tabla-vacia').style.display = 'none';
 		crearItem(codigo, nombre, precio, cantidad, estado);
 		guardarDB();
 		formularioUI.reset();
