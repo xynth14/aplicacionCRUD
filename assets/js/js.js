@@ -32,12 +32,14 @@ const pintarDB = () => {
 	arrayListado = JSON.parse(localStorage.getItem('data'));
 	if(arrayListado === null){
 		arrayListado = [];
+		document.querySelector('.rwd-table').style.display = 'none';
+		datosVacios('Aún no hay registro de producto');
 	}else{
-		if(arrayListado.length == 0){
+		/*if(arrayListado.length == 0){
 			document.querySelector('.rwd-table').style.display = 'none';
 			datosVacios('Aún no hay registro de producto');
 			return;
-		}
+		}*/
 		document.querySelector('.tabla-vacia').style.display = 'none';
 		let item = 1;
 		arrayListado.forEach(element => {
