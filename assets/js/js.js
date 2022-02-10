@@ -33,15 +33,22 @@ const pintarDB = () => {
 	if(arrayListado === null){
 		arrayListado = [];
 	}else{
+		if(arrayListado.length == 0){
+			document.querySelector('.rwd-table').style.display = 'none';
+			datosVacios('Aún no hay registro de producto');
+			return;
+		}
 		let item = 1;
 		arrayListado.forEach(element => {
+			let estadoProd = (element.estado==1)?'<span class=activo>Activo</span>':'<span class=inactivo>Inactivo</span>';
+			console.log(estadoProd);
 			listarProducto.innerHTML += `<tr>
 					<td data-th="ITEM">${item}</td>
 					<td data-th="CÓDIGO">${element.codigo}</td>
 					<td data-th="PRODUCTO">${element.nombre}</td>
 					<td data-th="PRECIO">${element.precio}</td>
 					<td data-th="CANTIDAD">${element.cantidad}</td>
-					<td data-th="ESTADO">${element.estado}</td>
+					<td data-th="ESTADO">${estadoProd}</td>
 					<td data-th="ACCIONES">
 						<i class="icon-edit">e</i>
 						<i class="icon-trash">d</i>
@@ -66,6 +73,7 @@ const eliminarDB = (codigo) => {
 const editarDB = (codigo) => {
 	document.querySelector('.btnGuardar').style.display = "none";
 	document.querySelector('.btnActualizar').style.display = "block";
+	document.querySelector('.codigo').style.display = "block";
 	formularioUI.style.background = "#eda71842";
 
 	let indexArray;	
@@ -86,6 +94,24 @@ function mostrar_menumv() {
 	element.classList.toggle("act-mv");
 }
 
+function datosVacios(mensaje){
+	const divMensaje = document.createElement('div');
+	divMensaje.classList.add('tabla-vacia');
+	divMensaje.textContent = mensaje;		
+	document.querySelector('.main-lista').appendChild(divMensaje);
+	console.log(mensaje);
+}
+function imprimirAlerta(mensaje, tipo){
+		const divMensaje = document.createElement('div');
+		divMensaje.classList.add('alert');
+		divMensaje.textContent = mensaje;		
+		document.querySelector('.main-registro').insertBefore(divMensaje, document.querySelector('.formulario'));
+
+		setTimeout(()=>{
+			divMensaje.remove();
+		}, 3000)
+	}
+
 //EVENTLISTENER
 document.querySelector('.btnActualizar').addEventListener('click', (e) => {
 	e.preventDefault();
@@ -95,16 +121,26 @@ document.querySelector('.btnActualizar').addEventListener('click', (e) => {
 	cantidad = cantidadUI.value;
 	estado = estadoUI.value;
 	
-	let indexArray = arrayListado.findIndex((elemento) => elemento.codigo == codigo);
-	arrayListado[indexArray].nombre = nombre;
-	arrayListado[indexArray].precio = precio;
-	arrayListado[indexArray].cantidad = cantidad;
-	arrayListado[indexArray].estado = estado;
-	guardarDB();
-	formularioUI.reset();
-	formularioUI.style.background = "var(--color2)";
-	document.querySelector('.btnGuardar').style.display = "block";
-	document.querySelector('.btnActualizar').style.display = "none";
+	if(nombre === '' || precio === '' || cantidad === '' || estado === ''){
+		imprimirAlerta("Todos los campos son obligatorios", "error");
+	}else if(estado > 1){
+		estadoUI.style.border = "1px solid red";
+		estadoUI.style.background = "#ff000012";
+	}else{
+		estadoUI.style.border = "1px solid #e5e5e5";
+		estadoUI.style.background = "#ffffff";
+		let indexArray = arrayListado.findIndex((elemento) => elemento.codigo == codigo);
+		arrayListado[indexArray].nombre = nombre;
+		arrayListado[indexArray].precio = precio;
+		arrayListado[indexArray].cantidad = cantidad;
+		arrayListado[indexArray].estado = estado;
+		guardarDB();
+		formularioUI.reset();
+		formularioUI.style.background = "var(--color2)";
+		document.querySelector('.btnGuardar').style.display = "block";
+		document.querySelector('.btnActualizar').style.display = "none";
+		document.querySelector('.codigo').style.display = "none";
+	}
 })
 
 document.querySelector('.btnGuardar').addEventListener('click', (e) => {
@@ -114,10 +150,21 @@ document.querySelector('.btnGuardar').addEventListener('click', (e) => {
 	let precio = precioUI.value;
 	let cantidad = cantidadUI.value;
 	let estado = estadoUI.value;
-	
-	crearItem(codigo, nombre, precio, cantidad, estado);
-	guardarDB();
-	formularioUI.reset();
+
+	if(nombre === '' || precio === '' || cantidad === '' || estado === ''){
+		imprimirAlerta("Todos los campos son obligatorios", "error");
+	}else if(estado > 1){
+		estadoUI.style.border = "1px solid red";
+		estadoUI.style.background = "#ff000012";
+	}else{
+		estadoUI.style.border = "1px solid #e5e5e5";
+		estadoUI.style.background = "#ffffff";
+		document.querySelector('.rwd-table').style.display = 'table';
+		document.querySelector('.tabla-vacia').style.display = 'none';
+		crearItem(codigo, nombre, precio, cantidad, estado);
+		guardarDB();
+		formularioUI.reset();
+	}
 })
 
 document.addEventListener('DOMContentLoaded', pintarDB);

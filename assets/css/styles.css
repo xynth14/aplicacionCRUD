@@ -5,6 +5,7 @@
   --boton2: #fdc107;
   --negro: #000000;
   --blanco: #ffffff;
+  --activo: #12b55d;
   --font1: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 * {
@@ -240,10 +241,12 @@ main section.titulo h1 {
 main section.registro {
   margin-bottom: 30px;
 }
+
 main section.registro .main-registro {
   position: relative;
 }
 main section.registro .main-registro form {
+  position: relative;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   gap: 25px;
@@ -263,6 +266,21 @@ main section.registro .main-registro form {
     grid-column-start: 1;
     grid-column-end: 3;
   }
+}
+main section.registro .main-registro form > p {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 40px;
+  margin-top: -20px;
+  background: var(--color1);
+  border: solid 1px var(--color1);
+  color: var(--blanco);
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px -2px #000;
 }
 main section.registro .main-registro form div {
   display: flex;
@@ -325,6 +343,18 @@ main section.registro .main-registro form div button {
 .codigo {
   display: none;
 }
+.activo {
+  color: var(--blanco);
+  background-color: var(--activo);
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+.inactivo {
+  color: var(--blanco);
+  background-color: var(--boton1);
+  padding: 5px 15px;
+  border-radius: 5px;
+}
 
 /*LISTA-TABLE*/
 main section.lista .main-lista .rwd-table {
@@ -337,12 +367,6 @@ main section.lista .main-lista .rwd-table th {
   background: var(--color1);
   color: #fff;
 }
-/*
-main section.lista .main-lista .rwd-table tr:first-child {
-  border-top: none;
-  background: var(--color1);
-  color: #fff;
-}*/
 
 main section.lista .main-lista .rwd-table tr {
   border-top: 1px solid #ddd;
@@ -352,10 +376,6 @@ main section.lista .main-lista .rwd-table tr {
 main section.lista .main-lista .rwd-table tr:nth-child(odd) {
   background-color: #ebf3f9;
 }
-/*
-main section.lista .main-lista .rwd-table tr:nth-child(odd):not(:first-child) {
-  background-color: #ebf3f9;
-}*/
 
 main section.lista .main-lista .rwd-table th {
   display: none;
