@@ -274,7 +274,7 @@ main section.registro .main-registro form div input {
 main section.registro .main-registro form div button {
   background-color: var(--boton1);
   color: var(--blanco);
-  padding: 12px 18px;
+  padding: 12px 17px;
   border: 1px solid #bc2c38;
   border-radius: 5px;
   box-sizing: border-box;
@@ -303,6 +303,10 @@ main section.registro .main-registro form div button {
 .tabla-vacia.ocultar {
   display: none;
 }
+.codigo {
+  display: none;
+}
+
 /*LISTA-TABLE*/
 main section.lista .main-lista .rwd-table {
   margin: auto;

@@ -62,13 +62,35 @@ const eliminarDB = (codigo) => {
 
 		if(elemento.codigo == codigo){
 			indexArray = index;
-			console.log(indexArray);
+			//console.log(indexArray);
 		}
 	
 	});
 
 	arrayListado.splice(indexArray, 1);
 	guardarDB();
+
+}
+
+const editarDB = (codigo) => {
+
+	document.querySelector('.btnGuardar').style.display = "none";
+	document.querySelector('.btnActualizar').style.display = "block";
+	
+	formularioUI.style.background = "#eda71842";
+
+	let indexArray;	
+	arrayListado.forEach((elemento, index) => {
+		if(elemento.codigo == codigo){
+			indexArray = index;
+			document.querySelector('.codigo').innerHTML = arrayListado[indexArray].codigo;
+			document.querySelector('#nombre').value = arrayListado[indexArray].nombre;
+			document.querySelector('#precio').value = arrayListado[indexArray].precio;
+			document.querySelector('#cantidad').value = arrayListado[indexArray].cantidad;
+			document.querySelector('#estado').value = arrayListado[indexArray].estado;
+		}
+	});
+	
 
 }
 
@@ -79,7 +101,27 @@ function mostrar_menumv() {
 
 //EVENTLISTENER
 
-formularioUI.addEventListener('submit', (e) => {
+document.querySelector('.btnActualizar').addEventListener('click', (e) => {
+	e.preventDefault();
+	codigo = document.querySelector('.codigo').innerHTML;
+	nombre = document.querySelector('#nombre').value;
+	precio = document.querySelector('#precio').value;
+	cantidad = document.querySelector('#cantidad').value;
+	estado = document.querySelector('#estado').value;
+	
+	let indexArray = arrayListado.findIndex((elemento) => elemento.codigo == codigo);
+	arrayListado[indexArray].nombre = nombre;
+	arrayListado[indexArray].precio = precio;
+	arrayListado[indexArray].cantidad = cantidad;
+	arrayListado[indexArray].estado = estado;
+	guardarDB();
+	formularioUI.reset();
+	formularioUI.style.background = "var(--color2)";
+	document.querySelector('.btnGuardar').style.display = "block";
+	document.querySelector('.btnActualizar').style.display = "none";
+})
+
+document.querySelector('.btnGuardar').addEventListener('click', (e) => {
 	e.preventDefault();
 
 	let codigo = Date.now();
@@ -102,12 +144,11 @@ listarProducto.addEventListener('click', (e) => {
 
 	//Editar
 	if(e.target.innerHTML === 'e'){
-		//console.log(e.path[2].childNodes[1].innerHTML)
+		editarDB(item);
 	}
 
 	//eliminar
 	if(e.target.innerHTML === 'd'){
-		
 		eliminarDB(item);
 	}
 
