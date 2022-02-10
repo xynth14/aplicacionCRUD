@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>APLICACIÓN CRUD</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/styles.css">
+	<link rel="stylesheet" href="assets/css/styles_icons.css">
+</head>
+
+<body>
+	<header>
+		<div class="container main-header">
+			<div class="menu">
+				<div class="logo"><img src="assets/images/logo.png" alt=""></div>
+				<nav id="btn-mv">
+					<ul>
+						<li><a href="#">Productos</a></li>
+						<li><a href="#">Clientes</a></li>
+						<li><a href="#">Usuarios</a></li>
+						<li class="item-sesion"><a href="#">Nueva Venta</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="sesion">
+				<a href="#">Administrador</a>
+				<a class="btn-movil" onclick="mostrar_menumv()"><i></i></a>
+			</div>
+		</div>
+	</header>
+
+	<main>
+
+		<section class="titulo">
+			<div class="container">
+				<h1>MANTENIMIENTO PRODUCTO</h1>
+			</div>
+		</section>
+
+		<section class="registro">
+			<div class="container main-registro ">
+				<form id="nuevo-registro" class="formulario" autocomplete="off">
+					<div>
+						<label>NOMBRE:</label>
+						<input type="text" id="nombre" name="nombre" class="">
+					</div>
+					<div>
+						<label>PRECIO:</label>
+						<input type="text" id="precio" name="precio" class="">
+					</div>
+					<div>
+						<label>CANTIDAD:</label>
+						<input type="number" id="cantidad" name="cantidad" class="">
+					</div>
+					<div>
+						<label>ESTADO:</label>
+						<input type="text" id="estado" name="estado" class="">
+					</div>
+					<div>
+						<button type="submit" class="btnGuardar"> <i class="icon-add-solid"></i> Agregar</button>
+						<button type="submit" class="btnActualizar"> <i class="icon-refresh1"></i> Actualizar</button>
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<section class="lista">
+			<div class="container main-lista">
+				<table class="rwd-table">
+					<thead>
+						<tr>
+							<th>ITEM</th>
+							<th>PRODUCTO</th>
+							<th>PRECIO</th>
+							<th>CANTIDAD</th>
+							<th>ESTADO</th>
+							<th>ACCIONES</th>
+						</tr>
+					</thead>
+					<tbody id="listar">
+						<tr>
+							<td data-th="ITEM">1</td>
+							<td data-th="PRODUCTO">Producto</td>
+							<td data-th="PRECIO">17</td>
+							<td data-th="CANTIDAD">5</td>
+							<td data-th="ESTADO">1</td>
+							<td data-th="ACCIONES">
+								<i class="icon-edit"></i>
+								<i class="icon-trash"></i>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+	</main>
+
+	<footer>
+		<div class="container">
+			<div class="main-footer">
+				<div class="copy-footer">
+					<p>© 2022 U Camp. Todos los derechos reservados. Esta es una página de aterrizaje ficticia para fines
+						académicos.</p>
+				</div>
+				<div class="rrss">
+					<ul>
+						<li><a href="#"><i class="icon-facebook"></i></a></li>
+						<li><a href="#"><i class="icon-instagram"></i></a></li>
+						<li><a href="#"><i class="icon-twitter"></i></a></li>
+						<li><a href="#"><i class="icon-github"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/js/js.js"></script>
+</body>
+
+</html>
